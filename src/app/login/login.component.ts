@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonText } from '@ionic/angular/standalone';
+import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -9,7 +9,20 @@ import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonText } from '@io
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
   standalone: true,
-  imports: [IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, CommonModule, ReactiveFormsModule]
+  imports: [IonRow, IonCol, 
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonButton,
+    IonText,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    CommonModule,
+    ReactiveFormsModule
+  ]
 })
 
 export class LoginComponent {

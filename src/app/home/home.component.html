@@ -1,19 +1,40 @@
-<img src="assets/img/capi.jpg" alt="Ionic Logo" width="1400" />
-<ion-tab-bar color="light">
-  <ion-tab-button tab="1">
-    <ion-icon name="heart"></ion-icon>
-    <ion-label>Favorites</ion-label>
-    <ion-badge color="danger"></ion-badge>
-  </ion-tab-button>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon slot="icon-only" name="compass-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Kuska Ñan</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-tab-button tab="2">
-    <ion-icon name="musical-note"></ion-icon>
-    <ion-label>Music</ion-label>
-  </ion-tab-button>
+<ion-content>
+  <ion-toolbar color="light">
+    <ion-segment value="default">
+      <ion-segment-button value="donde" routerLink="/donde-ir">
+        <ion-icon name="location-outline"></ion-icon>
+        <ion-label>Dónde ir</ion-label>
+      </ion-segment-button>
 
-  <ion-tab-button tab="3">
-    <ion-icon name="calendar"></ion-icon>
-    <ion-label>Calendar</ion-label>
-    <ion-badge color="danger">47</ion-badge>
-  </ion-tab-button>
-</ion-tab-bar>
+      <ion-segment-button value="que-hacer" routerLink="/que-hacer">
+        <ion-icon name="bicycle-outline"></ion-icon>
+        <ion-label>Qué hacer</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="comer" routerLink="/que-comer">
+        <ion-icon name="restaurant-outline"></ion-icon>
+        <ion-label>Qué comer</ion-label>
+      </ion-segment-button>
+
+      <ion-segment-button value="login" routerLink="/login">
+        <ion-icon name="person-outline"></ion-icon>
+        <ion-label>Iniciar sesión</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+  
+  <div class="ion-text-center ion-padding">
+    <img src="assets/img/capi.jpg" alt="Imagen principal" class="centered-image" width= 90% />
+  </div>
+</ion-content>
