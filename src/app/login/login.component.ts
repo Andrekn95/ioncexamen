@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
+import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { IonContent,IonApp,IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -17,43 +20,45 @@ import { IonContent, IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, I
     IonButton,
     IonText,
     IonCard,
+    IonApp,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
+  RouterLink,
+  RouterOutlet,
     CommonModule,
     ReactiveFormsModule
   ]
 })
 
-export class LoginComponent {
-  constructor(private fb: FormBuilder) {}
+export class LoginComponent implements OnInit, OnDestroy {
+  isRoot = true;
+  private _sub?: Subscription;
+
+  constructor(private fb: FormBuilder, private router: Router) {
+    // initial value
+    this.isRoot = this.router.url === '/login' || this.router.url === '/';
+  }
 
   formRegister = this.fb.group({
     username: ['', [Validators.required, Validators.email, Validators.pattern(/@yavirac\.edu\.ec$/)]],
-    password: ['', [Validators.required, Validators.minLength(6), this.validatorPersonalizado]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
     confirm: ['', [Validators.required]]
   });
 
-  validatorPersonalizado(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (value && value.includes('$')) {
-      return { dolar: true };
-    }
-    return null; 
-  }
-
-  validatorContieneP(control: AbstractControl): ValidationErrors | null {
-    const value = control.value;
-    if (value && /[pP]/.test(value)) {
-      return { faltaP: true };
-    }
-    return null;
-  }
-  
-
-
   onSubmit() {
 
+  }
+
+  ngOnInit() {
+    // update on navigation end
+    this._sub = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
+      this.isRoot = this.router.url === '/login' || this.router.url === '/';
+    });
+  }
+
+  ngOnDestroy() {
+    this._sub?.unsubscribe();
   }
 
   get username() { return this.formRegister.get('username'); }
