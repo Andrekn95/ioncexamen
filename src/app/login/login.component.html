@@ -1,0 +1,90 @@
+<ion-content class="ion-padding login-container">
+  <h2 class="ion-text-center">Inicio de Sesión</h2>
+
+  <form [formGroup]="formRegister" >
+
+    <ion-item>
+      <ion-label position="floating">Correo institucional</ion-label>
+      <ion-input
+        type="email"
+        formControlName="username"
+        placeholder="ejemplo@yavirac.edu.ec">
+      </ion-input>
+    </ion-item>
+
+    @if (username?.touched || username?.dirty) {
+      @if (username?.errors?.['required']) {
+        <ion-text color="danger"><p>El correo es obligatorio.</p></ion-text>
+      }
+      @else if (username?.errors?.['email']) {
+        <ion-text color="danger"><p>Debe ingresar un correo válido.</p></ion-text>
+      }
+      @else if (username?.errors?.['pattern']) {
+        <ion-text color="danger"><p>El correo debe terminar en @yavirac.edu.ec.</p></ion-text>
+      }
+    }
+
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input
+        type="password"
+        formControlName="password"
+        placeholder="Ingrese su contraseña">
+      </ion-input>
+    </ion-item>
+
+    @if (password?.touched || password?.dirty) {
+      @if (password?.errors?.['required']) {
+        <ion-text color="danger"><p>La contraseña es obligatoria.</p></ion-text>
+      }
+      @else if (password?.errors?.['minlength']) {
+        <ion-text color="danger"><p>Debe tener al menos 6 caracteres.</p></ion-text>
+      }
+      @else if (password?.errors?.['dolar']) {
+        <ion-text color="danger"><p>Debe contener el signo "$".</p></ion-text>
+      }
+
+      }
+      @else if (password?.errors?.['faltaP']) {
+        <ion-text color="faltaP"><p>Debe contener la letra P.</p></ion-text>
+      }
+
+    <ion-item>
+      <ion-label position="floating">Confirmar contraseña</ion-label>
+      <ion-input
+        type="password"
+        formControlName="confirm"
+        placeholder="Repita su contraseña">
+      </ion-input>
+    </ion-item>
+
+    @if (confirm?.touched || confirm?.dirty) {
+      @if (confirm?.errors?.['required']) {
+        <ion-text color="danger"><p>Debe confirmar la contraseña.</p></ion-text>
+      }
+    }
+
+    @if (password?.value && confirm?.value) {
+      @if (password?.value !== confirm?.value) {
+        <ion-text color="danger">
+          <p>❌ Las contraseñas no coinciden.</p>
+        </ion-text>
+      }
+      @else {
+        <ion-text color="success">
+          <p>✅ Las contraseñas coinciden correctamente.</p>
+        </ion-text>
+      }
+    }
+
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="formRegister.invalid"
+      color="primary"
+      class="ion-margin-top">
+      Iniciar sesión
+    </ion-button>
+
+  </form>
+</ion-content>
