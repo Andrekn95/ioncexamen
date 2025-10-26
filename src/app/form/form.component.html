@@ -13,20 +13,12 @@
     <ion-segment value="default">
       <ion-segment-button value="donde" routerLink="/donde-ir">
         <ion-icon name="location-outline"></ion-icon>
-        <ion-label>Dónde ir</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="que-hacer" routerLink="/que-hacer">
-        <ion-icon name="bicycle-outline"></ion-icon>
-        <ion-label>Qué hacer</ion-label>
+        <ion-label>Registra tu viaje</ion-label>
       </ion-segment-button>
 
-      <ion-segment-button value="comer" routerLink="/que-comer">
-        <ion-icon name="restaurant-outline"></ion-icon>
-        <ion-label>Qué comer</ion-label>
-      </ion-segment-button>
       <ion-segment-button value="login" routerLink="/login">
         <ion-icon name="person-outline"></ion-icon>
-        <ion-label>Iniciar sesión</ion-label>
+        <ion-label>Cerrar sesión</ion-label>
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -34,34 +26,66 @@
   <div class="ion-padding">
     <ion-card class="form-card">
       <ion-card-header>
-        <ion-card-title class="ion-text-center">Registro de Usuario</ion-card-title>
+        <ion-card-title class="ion-text-center">Registro</ion-card-title>
       </ion-card-header>
       
       <ion-card-content>
-        <form>
+        <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
           <ion-item>
-            <ion-label position="floating">Nombre Completo</ion-label>
-            <ion-input type="text" placeholder="Ingrese su nombre"></ion-input>
+            <ion-label position="floating">Nombre comercial</ion-label>
+            <ion-input type="text" formControlName="nombreComercial" placeholder="Nombre del establecimiento"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Correo Institucional</ion-label>
-            <ion-input type="email" placeholder="ejemplo@yavirac.edu.ec"></ion-input>
+            <ion-label>Tipo</ion-label>
+            <ion-select interface="popover" formControlName="tipo">
+              <ion-select-option value="hotel">Hotel</ion-select-option>
+              <ion-select-option value="motel">Motel</ion-select-option>
+              <ion-select-option value="cabaña">Cabaña</ion-select-option>
+            </ion-select>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Contraseña</ion-label>
-            <ion-input type="password" placeholder="Ingrese su contraseña"></ion-input>
+            <ion-label position="floating">Dirección</ion-label>
+            <ion-input type="text" formControlName="direccion" placeholder="Calle 123, Sector"></ion-input>
           </ion-item>
 
           <ion-item>
-            <ion-label position="floating">Confirmar Contraseña</ion-label>
-            <ion-input type="password" placeholder="Confirme su contraseña"></ion-input>
+            <ion-label position="floating">Telefono (10 dígitos, inicia con 2)</ion-label>
+            <ion-input type="tel" formControlName="contacto" placeholder="2XXXXXXXXX"></ion-input>
           </ion-item>
 
-          <ion-button expand="block" color="success" class="ion-margin-top">
-            Crear Cuenta
-          </ion-button>
+          <ion-item>
+            <ion-label position="floating">Celular </ion-label>
+            <ion-input type="tel" formControlName="fijo" placeholder="0XXXXXXXX"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Correo electrónico</ion-label>
+            <ion-input type="email" formControlName="email" placeholder="ejemplo@dominio.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Ubicación</ion-label>
+            <ion-input type="text" formControlName="ubicacion" placeholder="Ciudad / Provincia"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="stacked">Descripción (20–200 caracteres)</ion-label>
+            <ion-textarea formControlName="descripcion" rows="4"></ion-textarea>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Web (URL)</ion-label>
+            <ion-input type="url" formControlName="web" placeholder="https://ejemplo.com"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Habitaciones</ion-label>
+            <ion-input type="number" formControlName="habitaciones" placeholder="Número de habitaciones"></ion-input>
+          </ion-item>
+
+          <ion-button expand="block" color="success" type="submit" class="ion-margin-top">Crear Registro</ion-button>
         </form>
       </ion-card-content>
     </ion-card>

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { IonContent,IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
+import { IonContent,IonItem, IonLabel, IonInput,IonToolbar, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -17,6 +17,7 @@ import { IonContent,IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, Io
     IonItem,
     IonLabel,
     IonInput,
+    IonToolbar,
     IonButton,
     IonText,
     IonCard,
@@ -35,8 +36,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   private _sub?: Subscription;
 
   constructor(private fb: FormBuilder, private router: Router) {
-    // initial value
-    this.isRoot = this.router.url === '/login' || this.router.url === '/';
   }
 
   formRegister = this.fb.group({
