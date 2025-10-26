@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink, RouterOutlet, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { IonContent,IonApp,IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
+import { IonContent,IonItem, IonLabel, IonInput, IonButton, IonText, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonCol, IonRow } from '@ionic/angular/standalone';
 
 
 @Component({
@@ -20,7 +20,6 @@ import { IonContent,IonApp,IonItem, IonLabel, IonInput, IonButton, IonText, IonC
     IonButton,
     IonText,
     IonCard,
-    IonApp,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
@@ -51,7 +50,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // update on navigation end
     this._sub = this.router.events.pipe(filter(e => e instanceof NavigationEnd)).subscribe(() => {
       this.isRoot = this.router.url === '/login' || this.router.url === '/';
     });
