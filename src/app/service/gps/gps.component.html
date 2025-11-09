@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Recursos del Teléfono</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Imágenes</ion-card-title>
+      <ion-card-subtitle>Cámara & Galería</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button expand="block" (click)="onTakePhoto()" [disabled]="loadingPhoto">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Tomar foto
+      </ion-button>
+
+      @if (photos.length) {
+        <ion-grid class="ion-margin-top">
+          <ion-row>
+            @for (p of photos; track p.fileName) {
+              <ion-col size="12" sizeMd="3">
+                <ion-card class="photo-card">
+                  <img [src]="p.webviewPath" alt="img not found" />
+                  <ion-item lines="none">
+                    <small>{{p.webviewPath}}</small>
+                    <ion-label>{{ p.fileName }}</ion-label>
+                  </ion-item>
+                  <ion-item>
+                    <ion-button color="danger" fill="solid" (click)="deletePhoto(p)">
+                      <ion-icon slot="icon-only" name="trash"></ion-icon>
+                    </ion-button>
+                  </ion-item>
+                </ion-card>
+              </ion-col>
+            }
+          </ion-row>
+        </ion-grid>
+      }
+      @if (!photos.length) {
+        <ion-text color="medium">
+          <p>No hay fotos guardadas todavía.</p>
+        </ion-text>
+      }
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Ubicación</ion-card-title>
+      <ion-card-subtitle>GPS en tiempo real</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-button (click)="getLocationOnce()" [disabled]="loadingLocation">
+        <ion-icon name="locate" slot="start"></ion-icon>
+        Obtener ubicación actual
+      </ion-button>
+
+      @if (loadingLocation) {
+        <ion-spinner class="ion-margin-start"></ion-spinner>
+      }
+
+      <div class="ion-margin-top">
+        <p><strong>Lat:</strong> {{ lat || '—' }} | <strong>Lng:</strong> {{ lng || '—' }}</p>
+      </div>
+
+      <!-- mapa google -->
+      @if (lat && lng && mapUrlSafe) {
+        <div class="map-wrapper">
+          <iframe
+            [src]="mapUrlSafe"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            style="border:0; width:100%; height:300px; border-radius:10px;">
+          </iframe>
+        </div>
+      }
+    </ion-card-content>
+  </ion-card>
+</ion-content>

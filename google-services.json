@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "929507423401",
+    "project_id": "ionic-50a08",
+    "storage_bucket": "ionic-50a08.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929507423401:android:73722e03731bf5d1a3a5b8",
+        "android_client_info": {
+          "package_name": "com.yavirac.examen"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi6PQaXANTQOZw5VVDdx21IY48laLGGG8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

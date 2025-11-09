@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { GpsService } from '../service/gps/gps.service';
 import { RouterLink } from '@angular/router';
 import {
   IonHeader,

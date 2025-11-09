@@ -29,6 +29,9 @@ import { AuthService } from '../auth.service';
   ]
 })
 export class LoginComponent {
+  mensaje: string = '';
+  mensajeColor: string = 'primary';
+  
   loginForm = this.fb.group({
     username: ['', [Validators.required, Validators.email, Validators.pattern(/@yavirac\.edu\.ec$/)]],
     password: ['', [Validators.required, Validators.minLength(6)]]
@@ -41,23 +44,34 @@ export class LoginComponent {
   ) {}
 
   onSubmit() {
-    console.log('LoginComponent - onSubmit ejecutado');
-    
     if (this.loginForm.valid) {
-      const username = this.loginForm.get('username')?.value || '';
-      const password = this.loginForm.get('password')?.value || '';
-      
-      console.log('LoginComponent - Credenciales:', username, password);
-      
-      if (this.authService.login(username, password)) {
-        console.log('LoginComponent - Navegando a /login/form');
-        this.router.navigate(['/login/form']);
-      } else {
-        alert('Credenciales incorrectas. Use: usuario@yavirac.edu.ec / 123456');
-      }
+      const username = this.loginForm.get('username')?.value ?? '';
+      const password = this.loginForm.get('password')?.value ?? '';
+
+      this.authService.login(username, password).subscribe({
+        next: (response) => {
+          if (response) {
+            console.log('✅ Login correcto');
+            this.mensaje = 'Inicio de sesión exitoso';
+            this.mensajeColor = 'success';
+            setTimeout(() => {
+              this.router.navigate(['login/form']);
+            }, 1000);
+          } else {
+            console.log('❌ Credenciales incorrectas');
+            this.mensaje = 'Credenciales incorrectas';
+            this.mensajeColor = 'danger';
+          }
+        },
+        error: (err) => {
+          console.error('❌ Error en login:', err);
+          this.mensaje = 'Error al conectar con el servidor';
+          this.mensajeColor = 'danger';
+        }
+      });
     } else {
-      alert('Por favor complete correctamente todos los campos');
-      console.log('LoginComponent - Formulario inválido');
+      this.mensaje = 'Por favor complete correctamente todos los campos';
+      this.mensajeColor = 'warning';
     }
   }
 

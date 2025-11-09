@@ -67,7 +67,7 @@ export class FormComponent implements OnInit {
    email: ['', [Validators.required, Validators.email]],
    ubicacion: ['', [Validators.required,provinciaEcuadorValidator()]],
    descripcion: ['', [ Validators.required,Validators.minLength(20),Validators.maxLength(200),Validators.pattern(/^[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ\s]+$/)]],
-   web: ['', [Validators.pattern(/^(https?:\/\/)?([\w-]+\.)+[\w-]{2,}(\/.*)?$/i)]],
+   web: ['', Validators.pattern(/^(https?:\/\/)?(\S+\.\S+)$/i)],
    habitaciones: ['', [Validators.required,  Validators.pattern(/^\d{1,4}$/), Validators.min(1)]]
   });
   
@@ -97,19 +97,14 @@ export class FormComponent implements OnInit {
     }
   }
   contarCaracteres() {
-  const valor = this.formRegister.get('direccion')?.value || '';
-  const valor1 = this.formRegister.get('descripcion')?.value || '';
+  const valor:string = this.formRegister.get('direccion')?.value || '';
+  const valor1:string= this.formRegister.get('descripcion')?.value || '';
   this.caracteresDireccion = valor.length;
   this.caracteresDescripcion = valor1.length;
 }
-
+  
   cerrarSesion() {
     this.authService.logout();
-    
-    if (typeof window !== 'undefined') {
-      window.history.replaceState(null, '', '/home');
-    }
-    
     this.router.navigate(['/home']);
   }
 }

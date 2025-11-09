@@ -1,39 +1,45 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
+import { map, catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly VALID_EMAIL = 'usuario@yavirac.edu.ec';
-  private readonly VALID_PASSWORD = '123456';
-  
-  constructor(private router: Router) {}
+  private apiUrl = 'http://localhost:8080/api/login'; // tu endpoint del backend
 
-  login(email: string, password: string): boolean {
-    console.log('AuthService - Intentando login:', email, password);
-    
-    if (email === this.VALID_EMAIL && password === this.VALID_PASSWORD) {
-      console.log('AuthService - Login exitoso');
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('userEmail', email);
-      return true;
-    }
-    
-    console.log('AuthService - Login fallido');
-    return false;
+  constructor(private http: HttpClient, private router: Router) {}
+
+  login(username: string, password: string): Observable<boolean> {
+    const body = { username, password };
+
+    return this.http.post<any>(this.apiUrl, body).pipe(
+      map(response => {
+        console.log('Respuesta del backend:', response);
+        // si el backend devuelve true o un token
+        if (response === true || response?.token) {
+          localStorage.setItem('usuarioLogueado', 'true');
+          localStorage.setItem('userEmail', username);
+          return true;
+        }
+        return false;
+      }),
+      catchError(error => {
+        console.error('Error en login:', error);
+        return of(false);
+      })
+    );
   }
 
   logout(): void {
-    console.log('AuthService - Cerrando sesión');
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('usuarioLogueado');
     localStorage.removeItem('userEmail');
-    this.router.navigate(['/login']);
+    this.router.navigate(['/login'], { replaceUrl: true });
   }
 
   hasUser(): boolean {
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    console.log('AuthService - Verificando sesión:', isLoggedIn);
-    return isLoggedIn;
+    return localStorage.getItem('usuarioLogueado') === 'true';
   }
 }

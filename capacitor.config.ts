@@ -1,9 +1,10 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'com.yavirac.examen',
   appName: 'examen',
   webDir: 'www'
 };
+
 
 export default config;
