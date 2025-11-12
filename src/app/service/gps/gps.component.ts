@@ -92,15 +92,15 @@ export class GpsComponent implements OnInit {
 
   async getLocationOnce() {
     try {
-      this.loadingLocation = true;
-      const pos = await this.gps.getCurrentPosition();
+      this.loadingLocation = true;//muestra un boleano para indicar que se esta cargando la ubicacion
+      const pos = await this.gps.getCurrentPosition();//llama a la funcion del servicio gps para obtener la posicion actual
       this.lat = pos.coords.latitude;
       this.lng = pos.coords.longitude;
 
       this.updateMapUrl();
     } catch (e) {
       console.error(e);
-    } finally {
+    } finally {//desaparece el spinner de carga
       this.loadingLocation = false;
     }
   }

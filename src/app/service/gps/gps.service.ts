@@ -20,7 +20,7 @@ export class GpsService {
     const photo = await Camera.getPhoto({
       source: CameraSource.Prompt,
       resultType: CameraResultType.Uri,
-      quality: 85,
+      quality: 50,
       saveToGallery: true,
       promptLabelHeader: 'Elegir',
       promptLabelPhoto: 'Abrir galeria',
@@ -38,6 +38,7 @@ export class GpsService {
     if (perm.location !== 'granted') {
       const req = await Geolocation.requestPermissions();
 
+
       if (req.location !== 'granted') {
         await Toast.show({text: 'Permiso de ubicación denegado'});
         throw new Error('Location permission denied');
@@ -50,7 +51,7 @@ export class GpsService {
 
     return pos;
   }
-
+//transforma la foto en base64 ideal para alamacenarla
   private async readAsBase64(photo: Photo): Promise<string> {
     const response = await fetch(photo.webPath!);
 
